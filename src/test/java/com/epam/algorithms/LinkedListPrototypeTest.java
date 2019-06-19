@@ -78,4 +78,9 @@ public class LinkedListPrototypeTest {
         rawLinkedListPrototype.addFirst(o1);
         assertEquals(o1, rawLinkedListPrototype.head());
     }
+
+    @Test
+    public void revert() {
+        throw new UnsupportedOperationException();
+    }
 }
