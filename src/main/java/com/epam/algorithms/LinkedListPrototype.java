@@ -29,12 +29,12 @@ public class LinkedListPrototype<T> {
     public void revert(){
         Node current = first;
         Node previous = null;
-        Node next;
+        Node rememberedNext;
         while(current != null){
-            next = current.next;
+            rememberedNext = current.next;
             current.next=previous;
             previous = current;
-            current = next;
+            current = rememberedNext;
         }
     }
 
