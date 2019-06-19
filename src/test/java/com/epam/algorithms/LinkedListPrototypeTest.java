@@ -3,17 +3,23 @@ package com.epam.algorithms;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class LinkedListPrototypeTest {
 
     private LinkedListPrototype rawLinkedListPrototype;
     private LinkedListPrototype<String> stringLinkedListPrototype;
+    private LinkedListPrototype<Integer> integerLinkedListPrototype;
 
     @Before
-    public void init(){
+    public void init() {
         rawLinkedListPrototype = new LinkedListPrototype();
         stringLinkedListPrototype = new LinkedListPrototype<>();
+        integerLinkedListPrototype = new LinkedListPrototype<>();
     }
 
     @Test
@@ -81,6 +87,28 @@ public class LinkedListPrototypeTest {
 
     @Test
     public void revert() {
-        throw new UnsupportedOperationException();
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+
+        integers.forEach(integerLinkedListPrototype::addFirst);
+        integerLinkedListPrototype.revert();
+
+        integers.forEach(i -> {
+            assertEquals(i, integerLinkedListPrototype.head());
+            integerLinkedListPrototype.removeFirst();
+        });
+    }
+
+    @Test
+    public void revertEmpty() {
+        integerLinkedListPrototype.revert();
+        assertNull(integerLinkedListPrototype.head());
+    }
+
+    @Test
+    public void revertSingleElement() {
+        integerLinkedListPrototype.addFirst(1);
+        integerLinkedListPrototype.revert();
+
+        assertEquals(Integer.valueOf(1), integerLinkedListPrototype.head());
     }
 }

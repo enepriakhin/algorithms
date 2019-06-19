@@ -36,6 +36,7 @@ public class LinkedListPrototype<T> {
             previous = current;
             current = rememberedNext;
         }
+        first = previous;
     }
 
     private class Node{
