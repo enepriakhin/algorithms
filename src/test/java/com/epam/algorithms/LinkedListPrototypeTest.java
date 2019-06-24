@@ -3,9 +3,7 @@ package com.epam.algorithms;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -24,7 +22,7 @@ public class LinkedListPrototypeTest {
 
     @Test
     public void addFirst() {
-        Object o = new Object();
+        Date o = new Date();
         rawLinkedListPrototype.addFirst(o);
         assertEquals(o, rawLinkedListPrototype.head());
         String string = "asd";
@@ -44,8 +42,8 @@ public class LinkedListPrototypeTest {
         rawLinkedListPrototype.removeFirst();
         assertNull(rawLinkedListPrototype.head());
 
-        Object o = new Object();
-        Object o1 = new Object();
+        Date o = new Date();
+        Date o1 = new Date(100L);
 
         rawLinkedListPrototype.addFirst(o);
         rawLinkedListPrototype.addFirst(o1);
@@ -65,7 +63,7 @@ public class LinkedListPrototypeTest {
         rawLinkedListPrototype.removeFirst();
         assertEquals(0, rawLinkedListPrototype.size());
 
-        rawLinkedListPrototype.addFirst(new Object());
+        rawLinkedListPrototype.addFirst(new Date());
         assertEquals(1, rawLinkedListPrototype.size());
 
         rawLinkedListPrototype.removeFirst();
@@ -76,11 +74,11 @@ public class LinkedListPrototypeTest {
     public void head() {
         assertNull(rawLinkedListPrototype.head());
 
-        Object o = new Object();
+        Date o = new Date();
         rawLinkedListPrototype.addFirst(o);
         assertEquals(o, rawLinkedListPrototype.head());
 
-        Object o1 = new Object();
+        Date o1 = new Date();
         rawLinkedListPrototype.addFirst(o1);
         assertEquals(o1, rawLinkedListPrototype.head());
     }
@@ -110,5 +108,19 @@ public class LinkedListPrototypeTest {
         integerLinkedListPrototype.revert();
 
         assertEquals(Integer.valueOf(1), integerLinkedListPrototype.head());
+    }
+
+    @Test
+    public void getMax() {
+        assertNull(integerLinkedListPrototype.getMax());
+
+        List<Integer> integers = new ArrayList<>(Arrays.asList(1, 2, 4, 3, 5, 3, 5, 1));
+        integers.forEach(integerLinkedListPrototype::addFirst);
+
+        for (int i = integers.size() - 1; i >= 0; i--) {
+            assertEquals(Collections.max(integers), integerLinkedListPrototype.getMax());
+            integerLinkedListPrototype.removeFirst();
+            integers.remove(i);
+        }
     }
 }

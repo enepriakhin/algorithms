@@ -3,7 +3,7 @@ package com.epam.algorithms;
 /**
  * NOT TESTED
  */
-public class WierdQueue<T> {
+public class WierdQueue<T extends Comparable<? super T>> {
 
     private LinkedListPrototype<T> in = new LinkedListPrototype<>();
     private LinkedListPrototype<T> out = new LinkedListPrototype<>();

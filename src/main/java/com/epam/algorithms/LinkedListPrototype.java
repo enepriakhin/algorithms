@@ -1,49 +1,67 @@
 package com.epam.algorithms;
 
-public class LinkedListPrototype<T> {
+public class LinkedListPrototype<T extends Comparable<? super T>> {
 
     private Node first;
     private int size;
+    private LinkedListPrototype<T> maxValues;
 
-    public void addFirst(T value){
+    private LinkedListPrototype(Object o) {
+    }
+
+    public LinkedListPrototype() {
+        this.maxValues = new LinkedListPrototype<>(new Object());
+    }
+
+    public void addFirst(T value) {
         Node newNode = new Node(value, first);
         size++;
         first = newNode;
+        if (maxValues != null && (maxValues.head() == null || maxValues.head().compareTo(value) <= 0)) {
+            maxValues.addFirst(value);
+        }
     }
 
-    public void removeFirst(){
+    public void removeFirst() {
         if (first != null) {
+            if (maxValues!=null && this.head().equals(maxValues.head())) {
+                maxValues.removeFirst();
+            }
             first = first.next;
             size--;
         }
     }
 
-    public int size(){
+    public T getMax() {
+        return maxValues.head();
+    }
+
+    public int size() {
         return size;
     }
 
-    public T head(){
+    public T head() {
         return first == null ? null : first.value;
     }
 
-    public void revert(){
+    public void revert() {
         Node current = first;
         Node previous = null;
         Node rememberedNext;
-        while(current != null){
+        while (current != null) {
             rememberedNext = current.next;
-            current.next=previous;
+            current.next = previous;
             previous = current;
             current = rememberedNext;
         }
         first = previous;
     }
 
-    private class Node{
+    private class Node {
         T value;
         Node next;
 
-        public Node(T value, Node next) {
+        Node(T value, Node next) {
             this.value = value;
             this.next = next;
         }
